@@ -1,0 +1,134 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: serviceaccounts-cluster-admin
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: system:serviceaccounts
+---
+ apiVersion: v1
+ kind: Secret
+ metadata:
+   name: cloudflare-api-token-secret
+   namespace: cert-manager
+ type: Opaque
+ stringData:
+   api-token: TOKEN_PLACE_HOLDER
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: EMAIL_PLACE_HOLDER
+    privateKeySecretRef:
+      name: letsencrypt
+    solvers:
+    - dns01:
+        cloudflare:
+          email: EMAIL_PLACE_HOLDER
+          apiTokenSecretRef:
+            name: cloudflare-api-token-secret
+            key: api-token
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: eck-mycert-secret
+  namespace: default
+spec:
+  secretName: eck-mycert-secret
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  commonName: '*.DNS_PLACE_HOLDER'
+  dnsNames:
+  - "*.DNS_PLACE_HOLDER"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: env-secret
+type: Opaque
+stringData:
+  .env: |-
+    NODE_ENV="production"
+    INFRA="K8S"
+    HOSTIP=""
+    DNSWILDCARD="DNS_PLACE_HOLDER"
+    PASSWORD="PASSWORD_PLACE_HOLDER"
+    SECRET="SECRET_PLACE_HOLDER"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: self-eck-admin-ui
+  labels:
+    app: self-eck-admin-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: self-eck-admin-ui
+  template:
+    metadata:
+      labels:
+        app: self-eck-admin-ui
+    spec:
+      containers:
+      - name: self-eck-admin-ui
+        image: judu01/self-eck-admin-ui:v20basicbeta4
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: env-volume
+          mountPath: "/usr/src/app/.env"
+          subPath: .env
+      volumes:
+      - name: env-volume
+        secret:
+          secretName: env-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: self-eck-admin-ui
+  labels:
+    app: self-eck-admin-ui
+spec:
+  ports:
+  - port: 3000
+    protocol: TCP
+  selector:
+    app: self-eck-admin-ui
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/backend-protocol: HTTP
+  name: eck-ui-ingress
+  namespace: default
+spec:
+  rules:
+  - host: eck-admin.DNS_PLACE_HOLDER
+    http:
+      paths:
+      - backend:
+          serviceName: self-eck-admin-ui
+          servicePort: 3000
+        path: /
+  tls:
+  - hosts:
+    - eck-admin.DNS_PLACE_HOLDER
+    secretName: eck-mycert-secret
+
+

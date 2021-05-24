@@ -1,0 +1,7 @@
+k3s.yaml
+.env
+env-secret.yaml
+k3s-configmap.yaml
+node_modules
+k8s/deploymentcert-tmp.yaml
+k8s/deployment-tmp.yaml
