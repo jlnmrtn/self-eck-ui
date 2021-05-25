@@ -84,7 +84,7 @@ spec:
     spec:
       containers:
       - name: self-eck-admin-ui
-        image: judu01/self-eck-admin-ui:v20basicbeta4
+        image: judu01/self-eck-admin-ui:v20basicbeta5
         ports:
         - containerPort: 3000
         volumeMounts:

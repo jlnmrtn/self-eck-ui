@@ -31,7 +31,7 @@ sed -i -e "s/TOKEN_PLACE_HOLDER/$cftoken/g" k8s/deploymentcert-tmp.yaml
 curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash
 k3d cluster create  --k3s-server-arg "--no-deploy=traefik" --agents=3 -p "443:443@loadbalancer"
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-0.32.0/deploy/static/provider/cloud/deploy.yaml
-kubectl apply -f https://download.elastic.co/downloads/eck/1.5.0/all-in-one.yaml
+kubectl apply -f https://download.elastic.co/downloads/eck/1.6.0/all-in-one.yaml
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.3.1/cert-manager.yaml
 kubectl apply -f k8s/deploymentcert-tmp.yaml
 while [ $? -ne 0 ]; do

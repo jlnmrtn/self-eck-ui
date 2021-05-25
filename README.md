@@ -1,8 +1,8 @@
 # A Web UI on top of ECK along with an easy k8s-like installation for quick labs
 ![Intro](https://user-images.githubusercontent.com/43077255/118717509-73713880-b826-11eb-87a8-05ee8e80d0ba.JPG)
 
-Current Version: beta4
-https://github.com/Julien01/self-eck-ui/archive/refs/tags/v4.0.0-beta.zip
+Current Version: beta5
+https://github.com/Julien01/self-eck-ui/archive/refs/tags/v5.0.0-beta.zip
 
 ## Why this project?
 The aim of this project was:
@@ -58,9 +58,9 @@ kubectl controls the Kubernetes cluster manager.
     <p>
 
 ```
-Download latest release: https://github.com/Julien01/self-eck-ui/archive/refs/tags/v4.0.0-beta.zip
-unzip self-eck-ui-4.0.0-beta.zip
-cd self-eck-ui-4.0.0-beta
+Download latest release: https://github.com/Julien01/self-eck-ui/archive/refs/tags/v5.0.0-beta.zip
+unzip self-eck-ui-5.0.0-beta.zip
+cd self-eck-ui-5.0.0-beta
 sudo chmod +x install.sh
 sudo ./install.sh
 ```
@@ -221,9 +221,9 @@ If you own a dns domain and manage your zone on cloudflare, you can use wildcard
 It works only with Cloudflare managed zones for now. You should be able to manage you DNS zone for free with cloudflare (free tier)
 
 ```
-Download latest release here: https://github.com/Julien01/self-eck-ui/archive/refs/tags/v4.0.0-beta.zip
-unzip self-eck-ui-4.0.0-beta.zip
-cd self-eck-ui
+Download latest release here: https://github.com/Julien01/self-eck-ui/archive/refs/tags/v5.0.0-beta.zip
+unzip self-eck-ui-5.0.0-beta.zip
+cd self-eck-ui-5.0.0-beta
 sudo chmod +x installDNS.sh
 sudo ./installDNS.sh
 ```
@@ -413,14 +413,14 @@ sudo ./installDNS.sh
     </p>
     </details>
 
-## How to upgrade to beta4
+## How to upgrade to beta5
 Change the desired version in  `k8s/deployment-upgrade.yaml`
 Check the following line:
-`image: judu01/self-eck-admin-ui:v20basicbeta4` and change the version
+`image: judu01/self-eck-admin-ui:v20basicbeta5` and change the versionv if needed
 
 Then execute the following:
 ```
-kubectl apply -f https://download.elastic.co/downloads/eck/1.5.0/all-in-one.yaml
+kubectl apply -f https://download.elastic.co/downloads/eck/1.6.0/all-in-one.yaml
 kubectl apply -f k8s/deployment-upgrade.yaml
 ```
 

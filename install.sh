@@ -26,7 +26,7 @@ sed -i -e "s/SECRET_PLACE_HOLDER/$rand/g" k8s/deployment-tmp.yaml
 curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash
 k3d cluster create  --k3s-server-arg "--no-deploy=traefik" --agents=3 -p "443:443@loadbalancer"
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-0.32.0/deploy/static/provider/cloud/deploy.yaml
-kubectl apply -f https://download.elastic.co/downloads/eck/1.5.0/all-in-one.yaml
+kubectl apply -f https://download.elastic.co/downloads/eck/1.6.0/all-in-one.yaml
 kubectl apply -f k8s/deployment-tmp.yaml
 while [ $? -ne 0 ]; do
     echo -e ${RED}"retrying as this error could be normal, indeed depending on the bandwidth it can take up to 20m,  please be patient..."${RESET}
