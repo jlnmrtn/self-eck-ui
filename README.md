@@ -59,8 +59,8 @@ kubectl controls the Kubernetes cluster manager.
 
 ```
 Download latest release: https://github.com/Julien01/self-eck-ui/archive/refs/tags/v5.0.0-beta.zip
-unzip self-eck-ui-4.0.0-beta.zip
-cd self-eck-ui-4.0.0-beta
+unzip self-eck-ui-5.0.0-beta.zip
+cd self-eck-ui-5.0.0-beta
 sudo chmod +x install.sh
 sudo ./install.sh
 ```
@@ -222,8 +222,8 @@ It works only with Cloudflare managed zones for now. You should be able to manag
 
 ```
 Download latest release here: https://github.com/Julien01/self-eck-ui/archive/refs/tags/v5.0.0-beta.zip
-unzip self-eck-ui-4.0.0-beta.zip
-cd self-eck-ui
+unzip self-eck-ui-5.0.0-beta.zip
+cd self-eck-ui-5.0.0-beta
 sudo chmod +x installDNS.sh
 sudo ./installDNS.sh
 ```
@@ -413,10 +413,10 @@ sudo ./installDNS.sh
     </p>
     </details>
 
-## How to upgrade to beta4
+## How to upgrade to beta5
 Change the desired version in  `k8s/deployment-upgrade.yaml`
 Check the following line:
-`image: judu01/self-eck-admin-ui:v20basicbetax` and change the version(x) to 5
+`image: judu01/self-eck-admin-ui:v20basicbeta5` and change the versionv if needed
 
 Then execute the following:
 ```
@@ -431,7 +431,6 @@ kubectl apply -f k8s/deployment-upgrade.yaml
 
 ## Usefull commands
 ```
-export KUBECONFIG=$(k3d kubeconfig write k3s-default)
 sudo kubectl get elastic --all-namespaces
 sudo kubectl get ingresses --all-namespaces
 sudo kubectl get pods --all-namespaces
