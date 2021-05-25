@@ -1,4 +1,4 @@
 #!/bin/bash
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-docker tag self-eck-admin-ui judu01/self-eck-admin-ui:v20basicbeta4
+docker tag self-eck-admin-ui judu01/self-eck-admin-ui:v20basicbeta5
 docker push judu01/self-eck-admin-ui
