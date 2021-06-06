@@ -413,7 +413,7 @@ sudo ./installDNS.sh
     </p>
     </details>
 
-## How to upgrade to beta5
+## How to upgrade to beta6
 Change the desired version in  `k8s/deployment-upgrade.yaml`
 Check the following line:
 `image: judu01/self-eck-admin-ui:v20basicbeta6` and change the versionv if needed
@@ -431,6 +431,7 @@ kubectl apply -f k8s/deployment-upgrade.yaml
 
 ## Usefull commands
 ```
+export KUBECONFIG=$(k3d kubeconfig write)
 sudo kubectl get elastic --all-namespaces
 sudo kubectl get ingresses --all-namespaces
 sudo kubectl get pods --all-namespaces
